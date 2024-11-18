@@ -9,8 +9,8 @@ public class Communication {
         Game game = new Game();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in tic-tac-toe game :)!");
-        // System.out.println("Would you like to play with friend? (Y/N)");
-        //boolean playWithFriend = scanner.nextLine().toUpperCase().equals("Y");
+        System.out.println("Would you like to play with friend? (Y/N)");
+        boolean playWithFriend = scanner.nextLine().equalsIgnoreCase("Y");
 
         while (true) {
             game.print();
@@ -25,7 +25,12 @@ public class Communication {
                 System.out.println("Wrong coordinates! Try again!");
                 continue;
             }
-            game.makeMove(column, row);
+            try {
+                game.makeMove(column, row);
+            } catch (IllegalArgumentException e) {
+                System.out.println("The field is unavailable! Try another one!");
+                continue;
+            }
 
             if (game.getState() == X || game.getState() == O) {
                 game.print();
@@ -35,23 +40,7 @@ public class Communication {
                 game.print();
                 System.out.println("Draw : the board is full!");
             }
-
         }
         scanner.close();
     }
-
-//    static void computerMove(CharArray game) {
-//    Random random = new Random();
-//    int row, column;
-//
-//    while(true) {
-//        row = random.nextInt(3);
-//        column = random.nextInt(3);
-//
-//        if (game.putChar(column,row)){
-//            break;
-//            }
-//        }
-//    }
-
 }
