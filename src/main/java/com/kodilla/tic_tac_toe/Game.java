@@ -10,15 +10,6 @@ public class Game {
     private boolean isXTurn = true;
     private GameStatusEnum state = IN_PROGRESS;
 
-    public void makeMove(int x, int y) {
-        putChar(x, y);
-        checkWin();
-        isBoardFull();
-        if (this.state == IN_PROGRESS) {
-            changeTurn();
-        }
-    }
-
     private void changeTurn() {
         if (this.state == IN_PROGRESS) {
             this.isXTurn = !this.isXTurn;
@@ -36,9 +27,16 @@ public class Game {
     public void print() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                System.out.print(this.board[x][y] == EMPTY_CHAR ? " " : this.board[x][y]);
+                System.out.print("|" + (this.board[x][y] == EMPTY_CHAR ? " " : this.board[x][y]));
             }
-            System.out.println();
+            System.out.println("|");
+        }
+    }
+    public void makeMove(int x, int y) {
+        putChar(x, y);
+        checkWin();
+        if (this.state == IN_PROGRESS) {
+            changeTurn();
         }
     }
 
@@ -65,6 +63,7 @@ public class Game {
         }
 
         boolean isDraw = true;
+        isBoardFull();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == EMPTY_CHAR) {
@@ -91,8 +90,8 @@ public class Game {
         }
     }
 
-    public static boolean isFieldAvailable(int x, int y, Game game) {
-        return game.getBoard()[x][y] == EMPTY_CHAR;
+    public boolean isFieldAvailable(int x, int y) {
+        return getBoard()[x][y] == EMPTY_CHAR;
     }
 
 

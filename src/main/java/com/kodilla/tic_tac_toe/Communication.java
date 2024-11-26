@@ -1,25 +1,23 @@
 package com.kodilla.tic_tac_toe;
 
 import java.util.Scanner;
-
-import static com.kodilla.tic_tac_toe.CoordinateGenerator.makeCoordinateForAI;
-import static com.kodilla.tic_tac_toe.CoordinateGenerator.makeCoordinateForUser;
 import static com.kodilla.tic_tac_toe.GameStatusEnum.*;
 
 public class Communication {
     public static void main(String[] args) {
         Game game = new Game();
         Scanner scanner = new Scanner(System.in);
+        CoordinateGenerator coordinateGenerator = new CoordinateGenerator();
         System.out.println("Welcome in tic-tac-toe game :)!");
         System.out.println("Would you like to play with friend? (Y/N)");
         boolean playWithFriend = scanner.nextLine().equalsIgnoreCase("Y");
-
 
         int i = 0;
         while (true) {
             game.print();
 
-            Coordinate coordinate = playWithFriend || i % 2 == 0 ? makeCoordinateForUser() : makeCoordinateForAI(game);
+            Coordinate coordinate = playWithFriend || i % 2 == 0 ?
+                    coordinateGenerator.makeCoordinateForUser(scanner) : coordinateGenerator.makeCoordinateForAI(game);
 
             int row = coordinate.getRow();
             int column = coordinate.getColumn();
